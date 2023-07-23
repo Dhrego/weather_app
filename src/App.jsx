@@ -11,7 +11,7 @@ function App() {
     if (e.key === "Enter" && e.target.value) {
       setLocation(e.target.value);
       const key = "4feb26cde8264d66864193124232007";
-      const baseUrl = `http://api.weatherapi.com/v1/current.json?key=${key}&q=${location}`;
+      const baseUrl = `https://api.weatherapi.com/v1/current.json?key=${key}&q=${location}`;
 
       try {
         const response = await axios.get(baseUrl);
