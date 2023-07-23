@@ -37,7 +37,7 @@ function App() {
               onChange={(e) => setLocation(e.target.value)}
               onKeyDown={search}
               type="text"
-              className="form-control rounded-3"
+              className="form-control rounded-3 border-0"
               placeholder="enter city"
               value={location}
             />
