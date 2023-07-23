@@ -1,0 +1,23 @@
+.col-10{
+  background: linear-gradient(to right, #84CEEB, #5AB9EA, #5680e9ce);
+  
+}
+.day{
+  background-image: linear-gradient(to right, #ebc284, #eabf5a, #e9c956ce);
+ 
+}
+.night{
+  background-image: linear-gradient(to right, #00070e, #0d2946,#446483); 
+  
+}
+.container{
+  height: 100vh;
+}
+.form-control{
+  
+  box-shadow: none !important;
+}
+
+
+/* setup a default background to be the blue and depending whether its night or day
+time change background and adjust the colors accordingly to make it more visually appealing */
