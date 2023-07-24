@@ -1,11 +1,12 @@
 import { useState } from "react";
 import "./App.css";
 import axios from "axios";
+import clsx from "clsx";
 
 function App() {
   const [data, setData] = useState({});
   const [location, setLocation] = useState("");
-  const [bgDefault, setBgDefault] = useState(true);
+  const [valid, setValidity] = useState(true);
 
   async function search(e) {
     if (e.key === "Enter" && e.target.value) {
@@ -16,9 +17,10 @@ function App() {
       try {
         const response = await axios.get(baseUrl);
         setData(response.data);
-        setBgDefault(false);
+        setValidity(true);
       } catch (error) {
         console.error(error);
+        setValidity(false);
       }
       setLocation("");
     }
@@ -27,9 +29,11 @@ function App() {
     <>
       <div className="container d-flex justify-content-center align-items-center">
         <div
-          className={`col-10 col-md-6 p-5 shadow rounded-5 ${
-            data.current?.is_day === 0 ? "night" : bgDefault ? "" : "day"
-          }`}
+          className={clsx("col-10 col-md-6 p-5 shadow rounded-5", {
+            night: data.current?.is_day === 0,
+            day: data.current?.is_day === 1,
+            default: true,
+          })}
         >
           <h1 className="text-center pb-3">Weather App</h1>
           <div className="input-group mb-3">
@@ -45,6 +49,16 @@ function App() {
 
           <div className="container-fluid ">
             <div className="">
+              {!valid ? (
+                <strong
+                  className={`fs-4 ${
+                    data.current?.is_day === 0 ? "text-info" : "text-muted"
+                  }`}
+                >
+                  Enter valid a city
+                </strong>
+              ) : null}
+
               {data.location ? (
                 <div className="fs-2">{data.location.name}</div>
               ) : null}
