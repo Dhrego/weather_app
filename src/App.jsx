@@ -32,7 +32,7 @@ function App() {
           className={clsx("col-10 col-md-6 p-5 shadow rounded-5", {
             night: data.current?.is_day === 0,
             day: data.current?.is_day === 1,
-            default: true,
+            preset: true,
           })}
         >
           <h1 className="text-center pb-3">Weather App</h1>
@@ -51,9 +51,10 @@ function App() {
             <div className="">
               {!valid ? (
                 <strong
-                  className={`fs-4 ${
-                    data.current?.is_day === 0 ? "text-info" : "text-muted"
-                  }`}
+                  className={clsx("fs-4", {
+                    "text-info": data.current?.is_day === 0,
+                    "text-muted": data.current?.is_day !== 0,
+                  })}
                 >
                   Enter valid a city
                 </strong>
