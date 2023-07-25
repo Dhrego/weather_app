@@ -3,28 +3,38 @@ import "./App.css";
 import axios from "axios";
 import clsx from "clsx";
 
-function App() {
+const App = () => {
   const [data, setData] = useState({});
   const [location, setLocation] = useState("");
   const [valid, setValidity] = useState(true);
 
-  async function search(e) {
-    if (e.key === "Enter" && e.target.value) {
-      setLocation(e.target.value);
-      const key = "4feb26cde8264d66864193124232007";
-      const baseUrl = `https://api.weatherapi.com/v1/current.json?key=${key}&q=${location}`;
+  const search = async () => {
+    setLocation(location);
+    const key = "4feb26cde8264d66864193124232007";
+    const baseUrl = `https://api.weatherapi.com/v1/current.json?key=${key}&q=${location}`;
 
-      try {
-        const response = await axios.get(baseUrl);
-        setData(response.data);
-        setValidity(true);
-      } catch (error) {
-        console.error(error);
-        setValidity(false);
-      }
-      setLocation("");
+    try {
+      const response = await axios.get(baseUrl);
+      setData(response.data);
+      setValidity(true);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+      setValidity(false);
     }
-  }
+    setLocation("");
+  };
+
+  const handleSearchClick = () => {
+    if (location !== "") {
+      search();
+    }
+  };
+  const handleSubmit = (e) => {
+    if (location !== "" && e.key === "Enter") {
+      search();
+    }
+  };
   return (
     <>
       <div className="container d-flex justify-content-center align-items-center">
@@ -39,12 +49,19 @@ function App() {
           <div className="input-group mb-3">
             <input
               onChange={(e) => setLocation(e.target.value)}
-              onKeyDown={search}
+              onKeyDown={handleSubmit}
               type="text"
-              className="form-control rounded-3 border-0"
+              className="form-control rounded-start-3 border-0 border-end "
               placeholder="enter city"
               value={location}
+              autoFocus
             />
+            <button
+              onClick={handleSearchClick}
+              className="btn bg-white border-start "
+            >
+              <i className="bi bi-search text-dark"></i>
+            </button>
           </div>
 
           <div className="container-fluid ">
@@ -89,10 +106,10 @@ function App() {
               </div>
             </div>
 
-            <div className=" my-1">
+            <div className="my-1">
               {data.current ? (
                 <p>
-                  <small>Weather description: </small>
+                  <b className="small">Weather description: </b>
                   {data.current.condition.text}
                 </p>
               ) : null}
@@ -104,6 +121,6 @@ function App() {
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     </>
   );
-}
+};
 
 export default App;
