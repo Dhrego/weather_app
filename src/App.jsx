@@ -60,7 +60,7 @@ const App = () => {
               onClick={handleSearchClick}
               className="btn bg-white border-start "
             >
-              <i className="bi bi-search text-dark"></i>
+              <i className="bi bi-search text-secondary"></i>
             </button>
           </div>
 
