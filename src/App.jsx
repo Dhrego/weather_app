@@ -2,6 +2,8 @@ import { useState } from "react";
 import "./App.css";
 import axios from "axios";
 import clsx from "clsx";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const [data, setData] = useState({});
@@ -25,16 +27,43 @@ const App = () => {
     setLocation("");
   };
 
-  const handleSearchClick = () => {
-    if (location !== "") {
-      search();
-    }
-  };
   const handleSubmit = (e) => {
     if (location !== "" && e.key === "Enter") {
-      search();
+      toast.success("Loading content!", {
+        position: "top-right",
+        autoClose: 700,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      setTimeout(() => {
+        search();
+        console.log("Hello, World!");
+      }, 1500);
     }
   };
+  const handleSearchClick = () => {
+    if (location !== "" && valid === true) {
+      toast.success("Loading content!", {
+        position: "top-right",
+        autoClose: 700,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      setTimeout(() => {
+        search();
+        console.log("Hello, World!");
+      }, 1500);
+    }
+  };
+
   return (
     <>
       <div className="container d-flex justify-content-center align-items-center">
@@ -117,6 +146,18 @@ const App = () => {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     </>
